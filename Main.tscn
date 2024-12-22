@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cmefrptjhe0lr"]
+
+[node name="Main" type="Node2D"]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_left = 533.0
+offset_top = 290.0
+offset_right = 630.0
+offset_bottom = 313.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Build Works!"
