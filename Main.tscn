@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmefrptjhe0lr"]
+
+[ext_resource type="Texture2D" uid="uid://dv7gotmledike" path="res://icon.svg" id="1_dygog"]
+[ext_resource type="Script" path="res://test_state_object.gd" id="1_ecsw6"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_u4p14"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_ch2ir"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_lkjph"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_isguu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xmq1t"]
+size = Vector2(128, 128)
+
+[node name="Main" type="Node2D"]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_left = 533.0
+offset_top = 290.0
+offset_right = 630.0
+offset_bottom = 313.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Build Works!"
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 556.5
+offset_top = 514.0
+offset_right = 603.5
+offset_bottom = 537.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "STATE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TestStateObject" type="CharacterBody2D" parent="."]
+position = Vector2(580, 417)
+input_pickable = true
+script = ExtResource("1_ecsw6")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestStateObject"]
+texture = ExtResource("1_dygog")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestStateObject"]
+shape = SubResource("RectangleShape2D_xmq1t")
+
+[node name="StateChart" type="Node" parent="TestStateObject"]
+script = ExtResource("3_u4p14")
+
+[node name="Root" type="Node" parent="TestStateObject/StateChart"]
+script = ExtResource("4_ch2ir")
+initial_state = NodePath("Spinning")
+
+[node name="Idle" type="Node" parent="TestStateObject/StateChart/Root"]
+script = ExtResource("5_lkjph")
+
+[node name="toSpinning" type="Node" parent="TestStateObject/StateChart/Root/Idle"]
+script = ExtResource("6_isguu")
+to = NodePath("../../Spinning")
+event = &"spin"
+delay_in_seconds = "0.0"
+
+[node name="Spinning" type="Node" parent="TestStateObject/StateChart/Root"]
+script = ExtResource("5_lkjph")
+
+[node name="toIdle" type="Node" parent="TestStateObject/StateChart/Root/Spinning"]
+script = ExtResource("6_isguu")
+to = NodePath("../../Idle")
+event = &"stop"
+delay_in_seconds = "0.0"
+
+[connection signal="mouse_entered" from="TestStateObject" to="TestStateObject" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="TestStateObject" to="TestStateObject" method="_on_mouse_exited"]
+[connection signal="state_entered" from="TestStateObject/StateChart/Root/Idle" to="TestStateObject" method="_on_idle_state_entered"]
+[connection signal="state_entered" from="TestStateObject/StateChart/Root/Spinning" to="TestStateObject" method="_on_spinning_state_entered"]
+[connection signal="state_processing" from="TestStateObject/StateChart/Root/Spinning" to="TestStateObject" method="_on_spinning_state_processing"]
