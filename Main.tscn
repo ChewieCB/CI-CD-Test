@@ -13,13 +13,12 @@ size = Vector2(128, 128)
 [node name="Main" type="Node2D"]
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-offset_left = 533.0
-offset_top = 290.0
-offset_right = 630.0
-offset_bottom = 313.0
+offset_left = 273.0
+offset_top = 50.0
+offset_right = 370.0
+offset_bottom = 73.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="CenterContainer"]
 layout_mode = 2
@@ -31,10 +30,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 556.5
-offset_top = 514.0
-offset_right = 603.5
-offset_bottom = 537.0
+offset_left = 296.5
+offset_top = 274.0
+offset_right = 343.5
+offset_bottom = 297.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "STATE"
@@ -42,7 +41,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TestStateObject" type="CharacterBody2D" parent="."]
-position = Vector2(580, 417)
+position = Vector2(320, 177)
 input_pickable = true
 script = ExtResource("1_ecsw6")
 
